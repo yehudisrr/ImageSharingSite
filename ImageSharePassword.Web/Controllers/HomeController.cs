@@ -60,14 +60,13 @@ namespace ImageSharePassword.Web.Controllers
             List<int> ids = HttpContext.Session.Get<List<int>>("ApprovedIds");
             if (ids != null && ids.Contains(id))
             {
-                return Redirect($"/home/view?id={id}");
+                return Redirect($"/home/viewpic?id={id}");
             }
 
             return View(vm);
         }
 
-        [HttpPost]
-        public IActionResult View(int id)
+        public IActionResult ViewPic(int id)
         {
             var db = new ImageDb(_connectionString);
             UploadViewModel vm = new UploadViewModel();
@@ -81,7 +80,10 @@ namespace ImageSharePassword.Web.Controllers
             {
                 ids = new List<int>();
             }
-            ids.Add(image.Id);
+            if (!ids.Contains(image.Id))
+            {
+                ids.Add(image.Id);
+            }
             HttpContext.Session.Set("ApprovedIds", ids);
 
             return View(vm);

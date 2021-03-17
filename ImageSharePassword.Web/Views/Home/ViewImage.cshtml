@@ -1,0 +1,13 @@
+﻿@model UploadViewModel
+<form method="post" action="/home/view?id=@Model.Image.Id" class="view-image">
+    <div id="alertDiv"></div>
+    <label>Please enter the password for this image:</label>
+    <input id="password-entered" type="text" name="password" placeholder="Password" />
+    <input hidden id="password" value="@Model.Image.Password" />
+    <input hidden id="id" value="@Model.Image.Id" />
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts{
+    <script src="/js/passwordValidation.js"></script>
+}
